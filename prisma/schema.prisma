@@ -7,22 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Father{
-
-  id          String   @id @default(uuid())
-  name        String
-  email       String   @unique
-  phone       String   @unique
+model Father {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String   @unique
   createdAt DateTime @default(now())
-  children    Children[]  
+
   @@map("pais")
-}
-
-model Children {
-  id          String   @id @default(uuid()) 
-  name        String
-  fatherId    String
-  createdAt DateTime @default(now())
-  father      Father    @relation(fields: [fatherId], references: [id])
-  @@map("filhos")
 }
