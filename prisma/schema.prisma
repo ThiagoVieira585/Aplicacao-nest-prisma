@@ -13,6 +13,17 @@ model Father {
   email     String   @unique
   phone     String   @unique
   createdAt DateTime @default(now())
+  children  Child[]  @relation("FatherToChild")
 
   @@map("pais")
+}
+
+model Child {
+  id       String  @id @default(uuid())
+  name     String
+  age      Int
+  fatherId String
+  father   Father  @relation("FatherToChild", fields: [fatherId], references: [id])
+
+  @@map("filhos")
 }
