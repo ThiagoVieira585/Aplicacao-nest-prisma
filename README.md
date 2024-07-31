@@ -1,5 +1,3 @@
-Claro! Aqui está o README.md completo em Markdown, pronto para você copiar e colar:
-
 ```markdown
 # NestJS and Prisma CRUD Application
 
