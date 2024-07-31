@@ -1,34 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+// eslint-disable-next-line prettier/prettier
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { ChildService } from './child.service';
-import { CreateChildDto } from './dto/create-child.dto';
-import { UpdateChildDto } from './dto/child.dto';
+import { ChildDto } from './dto/child.dto';
 
 @Controller('child')
 export class ChildController {
   constructor(private readonly childService: ChildService) {}
 
   @Post()
-  create(@Body() createChildDto: CreateChildDto) {
-    return this.childService.create(createChildDto);
+  create(@Body() data: ChildDto) {
+    return this.childService.create(data);
   }
 
   @Get()
   findAll() {
     return this.childService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.childService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateChildDto: UpdateChildDto) {
-    return this.childService.update(+id, updateChildDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.childService.remove(+id);
   }
 }
