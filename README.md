@@ -1,17 +1,18 @@
-NestJS and Prisma CRUD Application
-Overview
+# NestJS and Prisma CRUD Application
 
-This project is a study application built with NestJS and Prisma. The goal is to explore and understand the implementation of CRUD operations and the relationships between tables in a database. Initially, a CRUD for the Father entity was implemented. The next step is to create a CRUD for the Child entity, which will be related to the Father entity, to emphasize the relationships between tables.
-Technologies Used
+## Overview
 
-    NestJS: A progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
-    Prisma: A next-generation ORM that helps build faster, make fewer errors, and have a more enjoyable database experience.
-    PostgreSQL: A powerful, open-source object-relational database system.
+This project is a study application built with NestJS and Prisma. The goal is to explore and understand the implementation of CRUD operations and the relationships between tables in a database. Initially, a CRUD for the `Father` entity was implemented. The next step is to create a CRUD for the `Child` entity, which will be related to the `Father` entity, to emphasize the relationships between tables.
 
-Project Structure
+## Technologies Used
 
-plaintext
+- **NestJS**: A progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
+- **Prisma**: A next-generation ORM that helps build faster, make fewer errors, and have a more enjoyable database experience.
+- **PostgreSQL**: A powerful, open-source object-relational database system.
 
+## Project Structure
+
+```plaintext
 .
 ├── nest-cli.json
 ├── package.json
@@ -42,11 +43,9 @@ plaintext
 │           │   └── child.dto.ts (planned) 
 │           ├── child.controller.ts (planned)
 │           ├── child.module.ts (planned)
-│           ├── child.service.ts (planned)
+│           └── child.service.ts (planned)
 ├── tsconfig.build.json
 └── tsconfig.json
-
-
 Installation
 
     Clone the Repository:
@@ -104,7 +103,7 @@ CRUD for Father
 
 Read Father:
 
-Send a GET request to /father
+Send a GET request to /father/:id.
 
 Update Father:
 
@@ -150,6 +149,3 @@ Future Improvements
 Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request if you have suggestions or improvements.
-License
-
-By following this README, you should be able to understand the purpose of the project, set it up on your local machine, and get started with developing and extending the application.
