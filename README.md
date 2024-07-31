@@ -1,4 +1,3 @@
-```markdown
 # NestJS and Prisma CRUD Application
 
 ## Overview
@@ -47,6 +46,7 @@ This project is a study application built with NestJS and Prisma. The goal is to
 │           └── child.service.ts (planned)
 ├── tsconfig.build.json
 └── tsconfig.json
+
 ```
 
 ## Installation
