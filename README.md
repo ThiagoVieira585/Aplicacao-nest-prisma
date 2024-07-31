@@ -1,73 +1,155 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+NestJS and Prisma CRUD Application
+Overview
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project is a study application built with NestJS and Prisma. The goal is to explore and understand the implementation of CRUD operations and the relationships between tables in a database. Initially, a CRUD for the Father entity was implemented. The next step is to create a CRUD for the Child entity, which will be related to the Father entity, to emphasize the relationships between tables.
+Technologies Used
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+    NestJS: A progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
+    Prisma: A next-generation ORM that helps build faster, make fewer errors, and have a more enjoyable database experience.
+    PostgreSQL: A powerful, open-source object-relational database system.
 
-## Description
+Project Structure
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+plaintext
 
-## Installation
+.
+├── nest-cli.json
+├── package.json
+├── package-lock.json
+├── prisma
+│   ├── migrations
+│   │   ├── 20240730190531_init
+│   │   │   └── migration.sql
+│   │   ├── 20240730215546_remove_table
+│   │   │   └── migration.sql
+│   │   └── migration_lock.toml
+│   └── schema.prisma
+├── README.md
+├── src
+│   ├── app.module.ts
+│   ├── database
+│   │   └── PrismaService.ts
+│   ├── main.ts
+│   └── modules
+│       └── father
+│           ├── dto
+│           │   └── father.dto.ts
+│           ├── father.controller.ts
+│           ├── father.module.ts
+│           └── father.service.ts
+│       └── child (planned)
+│           ├── dto
+│           │   └── child.dto.ts (planned) 
+│           ├── child.controller.ts (planned)
+│           ├── child.module.ts (planned)
+│           ├── child.service.ts (planned)
+├── tsconfig.build.json
+└── tsconfig.json
 
-```bash
-$ npm install
-```
 
-## Running the app
+Installation
 
-```bash
-# development
-$ npm run start
+    Clone the Repository:
 
-# watch mode
-$ npm run start:dev
+    bash
 
-# production mode
-$ npm run start:prod
-```
+git clone https://github.com/your-repo/nestjs-prisma-crud.git
+cd nestjs-prisma-crud
 
-## Test
+Install Dependencies:
 
-```bash
-# unit tests
-$ npm run test
+bash
 
-# e2e tests
-$ npm run test:e2e
+npm install
 
-# test coverage
-$ npm run test:cov
-```
+Set Up Environment Variables:
 
-## Support
+Create a .env file in the root directory with the following content:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+plaintext
 
-## Stay in touch
+NODE_ENV=development
+PORT=3000
+POSTGRES_USER=yourusername
+POSTGRES_PASSWORD=yourpassword
+POSTGRES_DB=yourdatabase
+DATABASE_URL="postgresql://yourusername:yourpassword@localhost:5432/yourdatabase"
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Run Database Migrations:
 
-## License
+bash
 
-Nest is [MIT licensed](LICENSE).
+npx prisma migrate dev
+
+Start the Application:
+
+bash
+
+    npm run start:dev
+
+Usage
+CRUD for Father
+
+    Create Father:
+
+    Send a POST request to /father with the following JSON body:
+
+    json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "phone": "123-456-7890"
+}
+
+Read Father:
+
+Send a GET request to /father
+
+Update Father:
+
+Send a PUT request to /father/:id with the following JSON body:
+
+json
+
+    {
+      "name": "John Doe Updated",
+      "email": "john.doe.updated@example.com",
+      "phone": "098-765-4321"
+    }
+
+    Delete Father:
+
+    Send a DELETE request to /father/:id.
+
+Planned CRUD for Child
+
+    Create Child:
+
+    Will involve sending a POST request to /child with a JSON body containing the child's details and the fatherId to establish the relationship.
+
+    Read Child:
+
+    Will involve sending a GET request to /child/:id.
+
+    Update Child:
+
+    Will involve sending a PUT request to /child/:id with a JSON body containing the updated child's details.
+
+    Delete Child:
+
+    Will involve sending a DELETE request to /child/:id.
+
+Future Improvements
+
+    Implement CRUD operations for the Child entity.
+    Enhance validation and error handling.
+    Add more complex relationships and queries.
+    Implement authentication and authorization.
+
+Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request if you have suggestions or improvements.
+License
+
+By following this README, you should be able to understand the purpose of the project, set it up on your local machine, and get started with developing and extending the application.
