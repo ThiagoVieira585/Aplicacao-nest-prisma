@@ -1,3 +1,6 @@
+Claro! Aqui está o README.md completo em Markdown, pronto para você copiar e colar:
+
+```markdown
 # NestJS and Prisma CRUD Application
 
 ## Overview
@@ -40,112 +43,115 @@ This project is a study application built with NestJS and Prisma. The goal is to
 │           └── father.service.ts
 │       └── child (planned)
 │           ├── dto
-│           │   └── child.dto.ts (planned) 
+│           │   └── child.dto.ts (planned)
 │           ├── child.controller.ts (planned)
 │           ├── child.module.ts (planned)
 │           └── child.service.ts (planned)
 ├── tsconfig.build.json
 └── tsconfig.json
-Installation
+```
 
-    Clone the Repository:
+## Installation
 
-    bash
+1. **Clone the Repository:**
 
-git clone https://github.com/your-repo/nestjs-prisma-crud.git
-cd nestjs-prisma-crud
+   ```bash
+   git clone https://github.com/your-repo/nestjs-prisma-crud.git
+   cd nestjs-prisma-crud
+   ```
 
-Install Dependencies:
+2. **Install Dependencies:**
 
-bash
+   ```bash
+   npm install
+   ```
 
-npm install
+3. **Set Up Environment Variables:**
 
-Set Up Environment Variables:
+   Create a `.env` file in the root directory with the following content:
 
-Create a .env file in the root directory with the following content:
+   ```plaintext
+   NODE_ENV=development
+   PORT=3000
+   POSTGRES_USER=yourusername
+   POSTGRES_PASSWORD=yourpassword
+   POSTGRES_DB=yourdatabase
+   DATABASE_URL="postgresql://yourusername:yourpassword@localhost:5432/yourdatabase"
+   ```
 
-plaintext
+4. **Run Database Migrations:**
 
-NODE_ENV=development
-PORT=3000
-POSTGRES_USER=yourusername
-POSTGRES_PASSWORD=yourpassword
-POSTGRES_DB=yourdatabase
-DATABASE_URL="postgresql://yourusername:yourpassword@localhost:5432/yourdatabase"
+   ```bash
+   npx prisma migrate dev
+   ```
 
-Run Database Migrations:
+5. **Start the Application:**
 
-bash
+   ```bash
+   npm run start:dev
+   ```
 
-npx prisma migrate dev
+## Usage
 
-Start the Application:
+### CRUD for Father
 
-bash
+- **Create Father:**
 
-    npm run start:dev
+  Send a `POST` request to `/father` with the following JSON body:
 
-Usage
-CRUD for Father
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "123-456-7890"
+  }
+  ```
 
-    Create Father:
+- **Read Father:**
 
-    Send a POST request to /father with the following JSON body:
+  Send a `GET` request to `/father/:id`.
 
-    json
+- **Update Father:**
 
-{
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "phone": "123-456-7890"
-}
+  Send a `PUT` request to `/father/:id` with the following JSON body:
 
-Read Father:
+  ```json
+  {
+    "name": "John Doe Updated",
+    "email": "john.doe.updated@example.com",
+    "phone": "098-765-4321"
+  }
+  ```
 
-Send a GET request to /father/:id.
+- **Delete Father:**
 
-Update Father:
+  Send a `DELETE` request to `/father/:id`.
 
-Send a PUT request to /father/:id with the following JSON body:
+### Planned CRUD for Child
 
-json
+- **Create Child:**
 
-    {
-      "name": "John Doe Updated",
-      "email": "john.doe.updated@example.com",
-      "phone": "098-765-4321"
-    }
+  Will involve sending a `POST` request to `/child` with a JSON body containing the child's details and the `fatherId` to establish the relationship.
 
-    Delete Father:
+- **Read Child:**
 
-    Send a DELETE request to /father/:id.
+  Will involve sending a `GET` request to `/child/:id`.
 
-Planned CRUD for Child
+- **Update Child:**
 
-    Create Child:
+  Will involve sending a `PUT` request to `/child/:id` with a JSON body containing the updated child's details.
 
-    Will involve sending a POST request to /child with a JSON body containing the child's details and the fatherId to establish the relationship.
+- **Delete Child:**
 
-    Read Child:
+  Will involve sending a `DELETE` request to `/child/:id`.
 
-    Will involve sending a GET request to /child/:id.
+## Future Improvements
 
-    Update Child:
+- Implement CRUD operations for the `Child` entity.
+- Enhance validation and error handling.
+- Add more complex relationships and queries.
+- Implement authentication and authorization.
 
-    Will involve sending a PUT request to /child/:id with a JSON body containing the updated child's details.
+## Contributing
 
-    Delete Child:
-
-    Will involve sending a DELETE request to /child/:id.
-
-Future Improvements
-
-    Implement CRUD operations for the Child entity.
-    Enhance validation and error handling.
-    Add more complex relationships and queries.
-    Implement authentication and authorization.
-
-Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request if you have suggestions or improvements.
+Contributions are welcome! Please open an [issue](https://github.com/your-repo/nestjs-prisma-crud/issues) or submit a [pull request](https://github.com/your-repo/nestjs-prisma-crud/pulls) if you have suggestions or improvements.
