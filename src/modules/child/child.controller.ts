@@ -1,5 +1,5 @@
 // eslint-disable-next-line prettier/prettier
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { ChildService } from './child.service';
 import { ChildDto } from './dto/child.dto';
 
@@ -7,13 +7,21 @@ import { ChildDto } from './dto/child.dto';
 export class ChildController {
   constructor(private readonly childService: ChildService) {}
 
-  @Post()
-  create(@Body() data: ChildDto) {
-    return this.childService.create(data);
+  @Post(':fatherId')
+  create(@Param('fatherId') fatherId: string, @Body() data: ChildDto) {
+    return this.childService.create(fatherId, data);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.childService.findAll();
+  }
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() data: ChildDto) {
+    return this.childService.update(id, data);
+  }
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    return this.childService.delete(id);
   }
 }

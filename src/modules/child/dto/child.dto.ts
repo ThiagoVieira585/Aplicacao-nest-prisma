@@ -9,7 +9,4 @@ export class ChildDto {
 
   @IsInt()
   age: number;
-
-  @IsUUID()
-  fatherId: string;
 }
