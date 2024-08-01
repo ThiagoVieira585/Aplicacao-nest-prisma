@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ChildDto } from './dto/child.dto';
 import { PrismaService } from 'src/database/PrismaService';
 
@@ -6,6 +10,19 @@ import { PrismaService } from 'src/database/PrismaService';
 export class ChildService {
   constructor(private prisma: PrismaService) {}
   async create(fatherId: string, data: ChildDto) {
+    if (!data.name || !data.age || !fatherId) {
+      throw new BadRequestException('Missing required fields');
+    }
+    if (data.age < 0) {
+      throw new BadRequestException('Age cannot be less than 0');
+    }
+    const fatherExists = await this.prisma.father.findUnique({
+      where: { id: fatherId },
+    });
+
+    if (!fatherExists) {
+      throw new NotFoundException('Father does not exist');
+    }
     const child = await this.prisma.child.create({
       data: {
         ...data,
@@ -28,7 +45,10 @@ export class ChildService {
     });
 
     if (!childExists) {
-      throw new Error('Child not found');
+      throw new NotFoundException('Child not found');
+    }
+    if (data.age < 0) {
+      throw new Error('Age cannot be less than 0');
     }
 
     return await this.prisma.child.update({
@@ -43,7 +63,7 @@ export class ChildService {
     });
 
     if (!childExists) {
-      throw new Error('Child not found');
+      throw new NotFoundException('Child does not exist');
     }
 
     return await this.prisma.child.delete({
