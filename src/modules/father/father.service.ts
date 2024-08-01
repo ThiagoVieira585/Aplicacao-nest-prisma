@@ -21,7 +21,11 @@ export class FatherService {
     return father;
   }
   async findAll() {
-    return this.prisma.father.findMany();
+    return this.prisma.father.findMany({
+      include: {
+        children: true,
+      },
+    });
   }
   async update(id: string, data: FatherDto) {
     const fatherExists = await this.prisma.father.findUnique({
