@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { FatherDto } from './dto/father.dto';
 
@@ -6,6 +11,9 @@ import { FatherDto } from './dto/father.dto';
 export class FatherService {
   constructor(private prisma: PrismaService) {}
   async create(data: FatherDto) {
+    if (!data.name || !data.email || !data.phone) {
+      throw new BadRequestException('Missing required fields');
+    }
     const fatherExists = await this.prisma.father.findFirst({
       where: {
         email: data.email,
@@ -13,8 +21,17 @@ export class FatherService {
     });
 
     if (fatherExists) {
-      throw new Error('Father already exists');
+      throw new ConflictException('This email is already');
     }
+    const phoneExists = await this.prisma.father.findFirst({
+      where: {
+        phone: data.phone,
+      },
+    });
+    if (phoneExists) {
+      throw new ConflictException('This phone is already');
+    }
+
     const father = await this.prisma.father.create({
       data,
     });
@@ -35,7 +52,15 @@ export class FatherService {
     });
 
     if (!fatherExists) {
-      throw new Error('Father not exists!');
+      throw new NotFoundException('Father does not exists!');
+    }
+    const phoneExists = await this.prisma.father.findFirst({
+      where: {
+        phone: data.phone,
+      },
+    });
+    if (phoneExists) {
+      throw new ConflictException('This phone is already');
     }
     return await this.prisma.father.update({
       data,
@@ -49,10 +74,16 @@ export class FatherService {
       where: {
         id,
       },
+      include: {
+        children: true,
+      },
     });
 
     if (!fatherExists) {
-      throw new Error('Father does not exists!');
+      throw new NotFoundException('Father does not exists!');
+    }
+    if (fatherExists.children.length > 0) {
+      throw new ConflictException('Cannot delete father with children');
     }
     return await this.prisma.father.delete({
       where: {
