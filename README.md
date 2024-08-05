@@ -37,19 +37,20 @@ This project is a study application built with NestJS and Prisma. Its purpose is
 │ ├── database
 │ │ └── PrismaService.ts
 │ ├── main.ts
+│ ├── swagger.ts
 │ └── modules
-│ ├── father
-│ │ ├── dto
-│ │ │ └── father.dto.ts
+│ │ ├── father
+│ │ │ ├── dto
+│ │ │   └── father.dto.ts
 │ │ ├── father.controller.ts
 │ │ ├── father.module.ts
 │ │ └── father.service.ts
-│ └── child
-│ │ ├── dto
-│ │   └── child.dto.ts
-│ │ ├── child.controller.ts
-│ │ ├── child.module.ts
-│ │ └── child.service.ts
+│ │ └── child
+│ │ │ ├── dto
+│ │ │ │ └── child.dto.ts
+│ │ │ ├── child.controller.ts
+│ │ │ ├── child.module.ts
+│ │ │ └── child.service.ts
 ├── tsconfig.build.json
 └── tsconfig.json
 ```
@@ -91,6 +92,8 @@ This project is a study application built with NestJS and Prisma. Its purpose is
 
 ## Usage
 
+## Swagger for next routes /api 
+
 ### CRUD for Father
 
 - **Create Father:**
@@ -99,7 +102,7 @@ This project is a study application built with NestJS and Prisma. Its purpose is
 
   ```json
   {
-    "name": "Jhon Doe",
+    "name": "Bob Doe",
     "email": "example@example.com",
     "phone": "123-456-7890"
   }
