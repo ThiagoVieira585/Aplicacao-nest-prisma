@@ -1,8 +1,11 @@
 # NestJS and Prisma CRUD Application
 
 ## Overview
+This project is a study application built with NestJS and Prisma. Its purpose is to explore and understand CRUD operations and the relationships between database tables.
 
-This project is a study application built with NestJS and Prisma. The goal is to explore and understand the implementation of CRUD operations and the relationships between tables in a database. Initially, a CRUD for the `Father` entity was implemented. The next step is to create a CRUD for the `Child` entity, which will be related to the `Father` entity, to emphasize the relationships between tables.
+    Initial Implementation: A CRUD system for the Father entity was created to manage data and operations related to fathers.
+    Current State: A CRUD system for the Child entity has been implemented, which is related to the Father entity, highlighting the relationships between tables.
+    Features: The application demonstrates creating, reading, updating, and deleting both Father and Child entities, with a focus on how Child records are associated with Father records.
 
 ## Technologies Used
 
@@ -18,35 +21,37 @@ This project is a study application built with NestJS and Prisma. The goal is to
 ├── package.json
 ├── package-lock.json
 ├── prisma
-│   ├── migrations
-│   │   ├── 20240730190531_init
-│   │   │   └── migration.sql
-│   │   ├── 20240730215546_remove_table
-│   │   │   └── migration.sql
-│   │   └── migration_lock.toml
-│   └── schema.prisma
+│ ├── migrations
+│ │ ├── 20240730190531_init
+│ │ │ └── migration.sql
+│ │ ├── 20240730215546_remove_table
+│ │ │ └── migration.sql
+│ │ └── migration_lock.toml
+│ └── schema.prisma
 ├── README.md
 ├── src
-│   ├── app.module.ts
-│   ├── database
-│   │   └── PrismaService.ts
-│   ├── main.ts
-│   └── modules
-│       └── father
-│           ├── dto
-│           │   └── father.dto.ts
-│           ├── father.controller.ts
-│           ├── father.module.ts
-│           └── father.service.ts
-│       └── child (planned)
-│           ├── dto
-│           │   └── child.dto.ts (planned)
-│           ├── child.controller.ts (planned)
-│           ├── child.module.ts (planned)
-│           └── child.service.ts (planned)
+│ ├── app.module.ts
+│ ├── common
+│ │ └── filters
+│ │ │ └── http-exception.filter.ts
+│ ├── database
+│ │ └── PrismaService.ts
+│ ├── main.ts
+│ └── modules
+│ ├── father
+│ │ ├── dto
+│ │ │ └── father.dto.ts
+│ │ ├── father.controller.ts
+│ │ ├── father.module.ts
+│ │ └── father.service.ts
+│ └── child
+│ │ ├── dto
+│ │   └── child.dto.ts
+│ │ ├── child.controller.ts
+│ │ ├── child.module.ts
+│ │ └── child.service.ts
 ├── tsconfig.build.json
 └── tsconfig.json
-
 ```
 
 ## Installation
@@ -69,11 +74,6 @@ This project is a study application built with NestJS and Prisma. The goal is to
    Create a `.env` file in the root directory with the following content:
 
    ```plaintext
-   NODE_ENV=development
-   PORT=3000
-   POSTGRES_USER=yourusername
-   POSTGRES_PASSWORD=yourpassword
-   POSTGRES_DB=yourdatabase
    DATABASE_URL="postgresql://yourusername:yourpassword@localhost:5432/yourdatabase"
    ```
 
@@ -99,15 +99,15 @@ This project is a study application built with NestJS and Prisma. The goal is to
 
   ```json
   {
-    "name": "John Doe",
-    "email": "john.doe@example.com",
+    "name": "Jhon Doe",
+    "email": "example@example.com",
     "phone": "123-456-7890"
   }
   ```
 
 - **Read Father:**
 
-  Send a `GET` request to `/father/:id`.
+  Send a `GET` request to `/father`.
 
 - **Update Father:**
 
@@ -116,7 +116,7 @@ This project is a study application built with NestJS and Prisma. The goal is to
   ```json
   {
     "name": "John Doe Updated",
-    "email": "john.doe.updated@example.com",
+    "email": "example.updated@example.com",
     "phone": "098-765-4321"
   }
   ```
@@ -125,31 +125,40 @@ This project is a study application built with NestJS and Prisma. The goal is to
 
   Send a `DELETE` request to `/father/:id`.
 
-### Planned CRUD for Child
+### CRUD for Child
 
 - **Create Child:**
 
-  Will involve sending a `POST` request to `/child` with a JSON body containing the child's details and the `fatherId` to establish the relationship.
+  Send a `POST` request to `/child/:fatherId` with the following JSON body:
+  ```json
+  {
+    "name": "Juninho",
+    "age": "10"
+  }
+  ```
 
 - **Read Child:**
 
-  Will involve sending a `GET` request to `/child/:id`.
+  Send a `GET` request to `/child`.
 
 - **Update Child:**
 
-  Will involve sending a `PUT` request to `/child/:id` with a JSON body containing the updated child's details.
+  Send a `PUT` request to `/child/:id` with the following JSON body:
+  ```json
+  {
+    "name": "Juninho Update",
+    "age": "11"
+  }
+  ```
 
 - **Delete Child:**
 
-  Will involve sending a `DELETE` request to `/child/:id`.
-
-## Future Improvements
-
-- Implement CRUD operations for the `Child` entity.
-- Enhance validation and error handling.
-- Add more complex relationships and queries.
-- Implement authentication and authorization.
+  Send a `DELETE` request to `/child/:id`.
 
 ## Contributing
 
-Contributions are welcome! Please open an [issue](https://github.com/your-repo/nestjs-prisma-crud/issues) or submit a [pull request](https://github.com/your-repo/nestjs-prisma-crud/pulls) if you have suggestions or improvements.
+Contributions are welcome! Please open an issue or submit a pull request if you have suggestions or improvements.
+
+## License
+
+This project is licensed under the MIT License. Copyright (c) [2024] [Thiago Vieira]
